@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="zyunsoft-run-evi">
+	<feature description="jetty-bundles" name="jetty-bundles" version="${jetty-version}">
+		<feature version="${osgi-compendium-version}">cmpn</feature>
+		<bundle start-level="40">mvn:org.apache.geronimo.specs/geronimo-servlet_3.0_spec/1.0</bundle>
+		<bundle start-level="40">mvn:javax.activation/com.springsource.javax.activation/1.1.0</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.orbit/javax.annotation/1.1.0.v201108011116</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.orbit/javax.el/2.2.0.v201108011116</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.orbit/com.sun.el/2.2.0.v201108011116</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.orbit/javax.mail.glassfish/1.4.1.v201005082020</bundle>
+        <bundle start-level="40">mvn:javax.transaction/com.springsource.javax.transaction/1.1.0</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.orbit/org.objectweb.asm/3.3.1.v201105211655</bundle>
+        
+        <!-- Jetty bundles -->
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-annotations/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-client/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-continuation/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-deploy/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-http/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-io/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-jaas/${jetty-version}</bundle>
+        <!--bundle start-level="40">mvn:org.eclipse.jetty/jetty-jaspi/${jetty-version}</bundle-->
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-jmx/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-jndi/${jetty-version}</bundle>
+        <!--bundle start-level="40">mvn:org.eclipse.jetty/jetty-nosql/${jetty-version}</bundle-->
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-plus/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-rewrite/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-security/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-servlet/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-servlets/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-server/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-util/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-webapp/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty/jetty-xml/${jetty-version}</bundle>
+
+        <!-- Jetty Websocket -->
+        <!--bundle start-level="40">mvn:javax.websocket/javax.websocket-api/1.0-b08</bundle-->
+        <!--bundle start-level="40">mvn:org.eclipse.jetty.drafts/javax.websocket-api/0.0.006.draft</bundle-->
+        <bundle start-level="40">mvn:org.eclipse.jetty.websocket/websocket-api/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.websocket/websocket-client/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.websocket/websocket-common/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.websocket/websocket-server/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.websocket/websocket-servlet/${jetty-version}</bundle>
+
+        <!-- Jetty SPDY -->
+        <bundle start-level="40">mvn:org.eclipse.jetty.osgi/jetty-osgi-npn/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.spdy/spdy-core/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.spdy/spdy-server/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.spdy/spdy-http-server/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.spdy/spdy-client/${jetty-version}</bundle>
+
+        <!-- Jetty OSGi boot -->
+        <bundle start-level="40">mvn:org.eclipse.jetty.osgi/jetty-osgi-boot/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.osgi/jetty-osgi-boot-warurl/${jetty-version}</bundle>
+        <bundle start-level="40">mvn:org.eclipse.jetty.osgi/jetty-osgi-boot-mvn/${jetty-version}</bundle>
+	</feature>
+	
+	<feature description="compendium service feature" version="${osgi-compendium-version}" name="cmpn">
+        <bundle start="true" start-level="5">mvn:org.osgi/org.osgi.compendium/${osgi-compendium-version}</bundle>
+        <!-- <bundle start="true" start-level="5">mvn:org.osgi/org.osgi.core/${osgi-version}</bundle> -->
+    </feature>
+    
+    <feature description="HttpService Support" version="${project.version}" name="httpservice">
+        <feature version="${jetty-version}">jetty-bundles</feature>
+        <bundle start-level="42">mvn:org.apache.felix/org.apache.felix.http.jetty.httpservice/1.0.0</bundle>		
+    </feature>
+
+    <feature description="Felix Web Console" name="felix-webconsole" version="${project.version}" resolver="(obr)">
+        <feature version="${project.version}">httpservice</feature>
+        <!-- the following three bundles are required by web console 4.0 -->
+        <bundle start-level="42">mvn:org.json/com.springsource.org.json/1.0.0</bundle>
+         <bundle start-level="42">mvn:commons-io/commons-io/2.4</bundle>
+        <bundle start-level="42">mvn:commons-fileupload/commons-fileupload/1.2.2</bundle>
+        
+        
+        <bundle start-level="45">mvn:org.apache.felix/org.apache.felix.scr/${felix-scr-version}</bundle>
+        <bundle start-level="45">mvn:org.apache.felix/org.apache.felix.webconsole/${felix-web-console-version}</bundle>
+    </feature>
+    
+    <feature name="karaf-webconsole" version="${karaf-version}" description="Base support of the Karaf WebConsole" resolver="(obr)">
+        <config name="org.apache.karaf.webconsole">
+            realm=karaf
+        </config>
+        <feature version="${project.version}">httpservice</feature>
+
+		<!-- pax web dependendent by karaf-webconsole -->
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-api/${pax-web-version}</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-spi/${pax-web-version}</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-runtime/${pax-web-version}</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-jetty/${pax-web-version}</bundle>
+		
+		<!-- we now does not install the Karaf HTTP plugin -->
+        <!--bundle start-level="30">mvn:org.apache.karaf.http/org.apache.karaf.http.core/${karaf-version}</bundle-->
+        <!--bundle start-level="30">mvn:org.apache.karaf.http/org.apache.karaf.http.command/${karaf-version}</bundle-->
+
+	<!-- karaf webconsole -->
+        <bundle start-level="30">mvn:org.apache.felix/org.apache.felix.metatype/${felix-metatype-version}</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.branding/${karaf-version}</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.console/${karaf-version}</bundle>
+		
+        <bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.instance/${karaf-version}</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.features/${karaf-version}</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.gogo/${karaf-version}</bundle>
+        <!--bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.http/${karaf-version}</bundle-->
+
+        <conditional>
+            <condition>eventadmin</condition>
+            <bundle start-level="30">mvn:org.apache.felix/org.apache.felix.webconsole.plugins.event/${felix-webconsole-eventadmin-plugin-version}</bundle>
+        </conditional>
+    </feature>
+	
+	<feature description="Karaf Manual" name="manual" version="${karaf-version}">
+        <feature version="${jetty-version}">jetty-bundles</feature>
+        <bundle start-level="4">mvn:org.apache.karaf/manual/${karaf-version}/war</bundle>
+	</feature>
+	
+	<feature description="Company Project Dependence" name="dependence-bundle" version="${karaf-version}">
+		<!-- <bundle start-level="50">mvn:com.alibaba/druid/${druid-version}</bundle> -->
+		<!-- <bundle start-level="50">mvn:org.springframework/spring-core/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-beans/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-context/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-aop/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-tx/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-jdbc/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-jpa/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-orm/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-oxm/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-asm/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-aspects/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-webmvc/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-expression/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-web/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-jms/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-context-support/${spring-version}</bundle> -->
+		
+		<!-- <bundle start-level="50">mvn:org.springframework/org.springframework.core/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.beans/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.context/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.aop/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.transaction/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.jdbc/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/spring-jpa/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.orm/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.oxm/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.asm/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.aspects/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.servlet/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.expression/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.web/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.jms/${spring-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework/org.springframework.context.support/${spring-version}</bundle>
+		 -->
+		
+		<bundle start-level="50">mvn:javax.jms/com.springsource.javax.jms/1.1.0</bundle>
+		
+		<bundle start-level="50">mvn:javax.persistence/com.springsource.javax.persistence/2.0.0</bundle>
+		
+		<!-- <bundle start-level="50">wrap:mvn:org.apache.catalina/com.springsource.org.apache.catalina/7.0.26</bundle> -->
+		
+		<!-- <bundle start-level="50">wrap:mvn:org.apache.catalina/com.springsource.org.apache.catalina/7.0.26&Bundle-SymbolicName=com.springsource.org.apache.catalina;&Bundle-Version=7.0.26 </bundle> -->
+		
+		<!-- <bundle start-level="50">mvn:org.apache.catalina/com.springsource.org.apache.catalina/7.0.26</bundle>
+		<bundle start-level="50">mvn:javax.ejb/com.springsource.javax.ejb/3.0.0</bundle>
+		<bundle start-level="50">mvn:javax.xml.rpc/com.springsource.javax.xml.rpc/1.1.0.v20110517</bundle>
+		<bundle start-level="50">mvn:org.apache.coyote/com.springsource.org.apache.coyote/7.0.26</bundle>
+		<bundle start-level="50">mvn:org.apache.juli/com.springsource.org.apache.juli.extras/7.0.26</bundle>
+		<bundle start-level="50">mvn:org.apache.tomcat/com.springsource.org.apache.tomcat.util/7.0.26</bundle>
+		<bundle start-level="50">mvn:org.apache.tomcat/com.springsource.org.apache.tomcat.api/7.0.26</bundle> -->
+		
+		<!-- <bundle start-level="50">mvn:org.springframework.data/spring-data-commons/1.6.1.RELEASE</bundle>
+		<bundle start-level="50">mvn:org.springframework.data/spring-data-jpa/${spring-data-jpa-version}</bundle>
+		
+		<bundle start-level="50">mvn:org.springframework.osgi/spring-osgi-core/${spring-osgi-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework.osgi/spring-osgi-io/${spring-osgi-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework.osgi/spring-osgi-bundle-archetype/${spring-osgi-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework.osgi/spring-osgi-extender/${spring-osgi-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework.osgi/spring-osgi-web-extender/${spring-osgi-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework.osgi/spring-osgi-annotation/${spring-osgi-version}</bundle>
+		<bundle start-level="50">mvn:org.springframework.osgi/spring-osgi-web/${spring-osgi-version}</bundle> -->
+		
+		<!-- <bundle start-level="42">mvn:commons-io/commons-io/${commons-io-version}</bundle> -->
+		<bundle start-level="42">mvn:commons-codec/commons-codec/${commons-codec-version}</bundle>
+		<bundle start-level="42">mvn:commons-beanutils/commons-beanutils/${commons-beanutils-version}</bundle>
+		<!-- <bundle start-level="42">mvn:commons-fileupload/commons-fileupload/${common-fileupload-version}</bundle> -->
+		<bundle start-level="42">mvn:org.apache.commons/commons-compress/${common-compress-version}</bundle>
+		<!-- <bundle start-level="42">mvn:org.slf4j/slf4j-api/${slf4j-version}</bundle>
+		<bundle start-level="42">mvn:org.slf4j/jcl-over-slf4j/${slf4j-version}</bundle> -->
+		<bundle start-level="42">mvn:ch.qos.logback/logback-core/${logback-version}</bundle>
+		<bundle start-level="42">mvn:ch.qos.logback/logback-classic/${logback-version}</bundle>
+		<!-- <bundle start-level="42">mvn:taglibs/standard/${standard-version}</bundle> -->
+		
+		<bundle start-level="42">mvn:commons-lang/commons-lang/${commons-lang-version}</bundle>
+		<!-- <bundle start-level="42">mvn:commons-logging/commons-logging/${commons-logging-version}</bundle> -->
+		
+		<bundle start-level="42">mvn:org.apache.ws.commons.axiom/axiom-api/${axiom-version}</bundle>
+		<bundle start-level="42">mvn:org.apache.ws.commons.axiom/axiom-impl/${axiom-version}</bundle>
+		
+		<!-- <bundle start-level="42">mvn:cglib/cglib/${cglib-version}</bundle> -->
+		<bundle start-level="42">mvn:org.ow2.asm/asm/${asm-version}</bundle>
+		<bundle start-level="42">mvn:org.apache.commons/commons-collections4/${common-collections4-version}</bundle>
+		<bundle start-level="42">mvn:commons-collections/commons-collections/3.2.1</bundle>
+		
+		<bundle start-level="42">mvn:com.google.guava/guava/${guava-version}</bundle>
+		
+		<!-- <bundle start-level="42">mvn:org.apache.ant/ant/${ant-version}</bundle> -->
+		<!-- <bundle start-level="42">mvn:org.aspectj/aspectjrt/${aspectj-version}</bundle>
+		<bundle start-level="42">mvn:org.aspectj/aspectjweaver/${aspectj-version}</bundle> -->
+		<bundle start-level="42">mvn:org.aspectj/com.springsource.org.aspectj.runtime/1.7.1.RELEASE</bundle>
+		<bundle start-level="42">mvn:org.aspectj/com.springsource.org.aspectj.weaver/1.7.1.RELEASE</bundle>
+		<bundle start-level="42">mvn:org.aopalliance/com.springsource.org.aopalliance/1.0.0</bundle>
+		
+		<!-- <bundle start-level="42">mvn:org.apache.commons/commons-lang3/${commons-lang3-version}</bundle> -->
+		
+		
+	</feature>
+
+</features>

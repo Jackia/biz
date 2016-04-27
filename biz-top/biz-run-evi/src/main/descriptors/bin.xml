@@ -1,0 +1,78 @@
+<assembly>
+	<id>bin</id>
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+	
+	<fileSets>
+		<fileSet>
+			<directory>target/dependencies/apache-karaf-${karaf-version}</directory>
+			<outputDirectory>/</outputDirectory>
+			<excludes>
+				<exclude>etc/custom.properties</exclude>
+				<exclude>etc/org.ops4j.pax.url.mvn.cfg</exclude>
+				<exclude>etc/org.apache.karaf.features.cfg</exclude>
+				<exclude>bin/karaf.bat</exclude>
+				<exclude>bin/karaf</exclude>
+			</excludes>
+		</fileSet>
+		
+		<fileSet>
+			<directory>target/features-repo</directory>
+			<outputDirectory>/system</outputDirectory>
+		</fileSet>
+		
+		<fileSet>
+			<directory>src/main/distribution/bin</directory>
+			<outputDirectory>/bin</outputDirectory>
+			<fileMode>0755</fileMode>
+			<filtered>true</filtered>
+		</fileSet>
+		
+		<fileSet>
+			<directory>src/main/distribution</directory>
+			<outputDirectory>/</outputDirectory>
+			<fileMode>0644</fileMode>
+			<filtered>true</filtered>
+			<excludes>
+				<exclude>jetty/etc/keystore</exclude>
+				<exclude>bin</exclude>
+			</excludes>
+		</fileSet>
+		
+		<fileSet>
+			<directory>src/main/distribution</directory>
+			<outputDirectory>/</outputDirectory>
+			<fileMode>0644</fileMode>
+			<includes>
+				<include>jetty/etc/keystore</include>
+			</includes>
+		</fileSet>
+		
+		<fileSet>
+			<directory>src/main/lib</directory>
+			<outputDirectory>/lib</outputDirectory>
+		</fileSet>
+		
+		<!-- <fileSet>
+			<directory>src/main/distribution/system</directory>
+			<outputDirectory>/systemExe</outputDirectory>
+		</fileSet> -->
+		
+		<fileSet>
+			<directory>src/main/distribution/dependency</directory>
+			<outputDirectory>/thirdpart</outputDirectory>
+		</fileSet>
+		
+	</fileSets>
+
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>org.mortbay.jetty.npn:npn-boot</include>
+			</includes>
+		</dependencySet>
+		
+	</dependencySets>
+</assembly>

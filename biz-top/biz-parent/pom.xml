@@ -1,0 +1,94 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.zhanyun.biz</groupId>
+		<artifactId>biz-top</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>biz-parent</artifactId>
+	<packaging>pom</packaging>
+
+	<properties>
+		<osgi-import-package>*</osgi-import-package>
+		<osgi-private-package></osgi-private-package>
+		<osgi-dynamicimport-package></osgi-dynamicimport-package>
+		<osgi-bundle-classpath></osgi-bundle-classpath>
+		<osgi-fragment-host></osgi-fragment-host>
+		<osgi-export-package></osgi-export-package>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<!-- <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency> -->
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
+		<!-- <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
+			</dependency> -->
+
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<configuration>
+					<supportedProjectTypes>
+						<supportedProjectType>jar</supportedProjectType>
+						<supportedProjectType>bundle</supportedProjectType>
+						<supportedProjectType>war</supportedProjectType>
+					</supportedProjectTypes>
+
+					<instructions>
+						<Import-Package>${osgi-import-package}</Import-Package>
+						<Export-Package>${osgi-export-package}</Export-Package>
+						<DynamicImport-Package>${osgi-dynamicimport-package}</DynamicImport-Package>
+						<Private-Package>${osgi-private-package}</Private-Package>
+						<Bundle-ClassPath>${osgi-bundle-classpath}</Bundle-ClassPath>
+						<Fragment-Host>${osgi-fragment-host}</Fragment-Host>
+					</instructions>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	<modules>
+		<module>biz-common</module>
+		<module>biz-models</module>
+		<module>biz-core</module>
+		<module>biz-payment</module>
+		<module>biz-web</module>
+		<module>biz-admin</module>
+		
+		
+	</modules>
+</project>
